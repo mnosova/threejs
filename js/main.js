@@ -1,8 +1,11 @@
 window.onload = () => {
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    // let width = window.innerWidth;
+    // let height = window.innerHeight;
+    let width = 1200;
+    let height = 660;
     console.log(width);
     console.log(height);
+
 
     let canvas = document.getElementById('canvas');
 
@@ -25,58 +28,46 @@ window.onload = () => {
 
 
     let rectangle = {
-        rotationX: 0,
         rotationY: 0.005,
         rotationZ: 0.032,
         positionX: 2,
-        positionY: 0,
-        positionZ: 0,
+        positionY: 2
+    };
+    let steps ={
+        rotationY: 0.005,
+        rotationZ: 0.032,
+        positionX: 2,
+        positionY: 2
     };
 
-    let toTop = {
-        rotationX: 0,
-        rotationY: 0.005,
-        rotationZ: 0.032,
-        positionX: 0,
-        positionY: 0,
-        positionZ: 0,
-    };
+    // let toTop = {
+    //     rotationY: 0.005,
+    //     rotationZ: 0.032,
+    //     positionX: 2,
+    //     positionY: 0
+    // };
 
-    let toBottom = {
-        rotationX: 0,
-        rotationY: 0.005,
-        rotationZ: 0.032,
-        positionX: 0,
-        positionY: 0,
-        positionZ: 0,
-    };
-
-    let toLeft = {
-        rotationX: 0,
-        rotationY: 0.005,
-        rotationZ: 0.032,
-        positionX: 0,
-        positionY: 0,
-        positionZ: 0,
-    };
-    let toRight = {
-        rotationX: 0,
-        rotationY: 0.005,
-        rotationZ: 0.032,
-        positionX: 0,
-        positionY: 0,
-        positionZ: 0,
-    };
+    // let toBottom = {
+    //     rotationY: 0.005,
+    //     rotationZ: 0.032,
+    //     positionX: 2,
+    //     positionY: 0
+    // };
+    //
+    // let toLeft = {
+    //     rotationY: 0.005,
+    //     rotationZ: 0.032,
+    //     positionX: 2,
+    //     positionY: 0,
+    // };
+    // let toRight = {
+    //     rotationY: 0.005,
+    //     rotationZ: 0.032,
+    //     positionX: 0,
+    //     positionY: 0,
+    // };
      let direction = '';
 
-
-    let gui = new dat.GUI();
-    gui.add(rectangle, 'positionY').min(-5).max(5).step(0.1);
-    gui.add(rectangle, 'positionX').min(-5).max(5).step(0.1);
-    gui.add(rectangle, 'positionZ').min(-5).max(5).step(0.1);
-    //gui.add(rectangle, 'rotationY').min(-0.2).max(0.2).step(0.001);
-    // gui.add(rectangle, 'rotationX').min(-0.2).max(0.2).step(0.001);
-    gui.add(rectangle, 'rotationZ').min(-0.2).max(0.2).step(0.001);
 
     let geometry = new THREE.BoxBufferGeometry(50, 100, 30, 5);
     let material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true});
@@ -89,64 +80,66 @@ window.onload = () => {
 
 
     function loop() {
-
+        //начальное вращение
         if(direction===''){
             mesh.rotation.y += rectangle.rotationY;
-            mesh.rotation.x = rectangle.rotationX;
             mesh.rotation.z += rectangle.rotationZ;
             mesh.position.x += rectangle.positionX;
             mesh.position.y += rectangle.positionY;
-            mesh.position.z += rectangle.positionZ;
         }
-
+        //касание правой
         if (Math.round(mesh.position.x) === width/2 || direction==='left') {
             rectangle.positionX = width/2;
             direction='left';
         }
+        //касание левой
         if (Math.round(mesh.position.x) === -width/2 || direction==='right') {
             rectangle.positionX = -width/2;
             direction='right';
         }
-        ///////////=////////////
+        //касание низа
         if (Math.round(mesh.position.y) === height/2 || direction==='top') {
             rectangle.positionY = height/2;
             direction='top';
         }
+        //касание верха
         if (Math.round(mesh.position.y) === -height/2 || direction==='bottom') {
             rectangle.positionY = -height/2;
             direction='bottom';
         }
 
-        ///////////=////////////
+        //касание правой
         if(rectangle.positionX === width/2 ){
-           // direction='left';
-             mesh.rotation.y += -rectangle.rotationY;
-             mesh.rotation.z += -rectangle.rotationZ;
-            mesh.position.x -= 2;
-            console.log(direction);
-
-        } if(rectangle.positionX === -width/2 ){
-           // direction='right';
-            mesh.rotation.y += rectangle.rotationY;
-            mesh.rotation.z += rectangle.rotationZ;
-            mesh.position.x += 2;
-            mesh.position.y += 2;
-            console.log(direction);
-        }
-        ///////////=////////////
-
-        if(rectangle.positionY === height/2 ){
-            // direction='left';
             mesh.rotation.y += -rectangle.rotationY;
             mesh.rotation.z += -rectangle.rotationZ;
-            mesh.position.y -= 2;
+            mesh.position.x -= steps.positionX;
+            mesh.position.y -= steps.positionY;
             console.log(direction);
-
+        //касание левой
+        } if(rectangle.positionX === -width/2 ){
+            mesh.rotation.y += -rectangle.rotationY;
+            mesh.rotation.z += -rectangle.rotationZ;
+            mesh.position.x +=   steps.positionX;
+            mesh.position.y +=  steps.positionY;
+            console.log(mesh.position.x);
+            console.log(mesh.position.y);
+            console.log(direction);
+        }
+        //касание верха
+        if(rectangle.positionY === height/2 ){
+            mesh.rotation.y += -rectangle.rotationY;
+            mesh.rotation.z += -rectangle.rotationZ;
+            mesh.position.x +=  steps.positionX;
+            mesh.position.y -=  steps.positionY*2;
+            console.log(mesh.position.x);
+            console.log(mesh.position.y);
+            console.log(direction);
+        //касание низа
         } if(rectangle.positionY === -height/2 ){
-            // direction='right';
-            mesh.rotation.y += rectangle.rotationY;
-            mesh.rotation.z += rectangle.rotationZ;
-            mesh.position.y += 2;
+            mesh.rotation.y += -rectangle.rotationY;
+            mesh.rotation.z += -rectangle.rotationZ;
+            mesh.position.x += -steps.positionX;
+            mesh.position.y += steps.positionY*2;
             console.log(direction);
         }
 
