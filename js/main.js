@@ -101,20 +101,50 @@ window.onload = () => {
     //
     // };
 
-    let number = 5;
+    // let number = 5;
     //let d= [];
-    let mesh;
-    for(let i=1; i<=number;i++){
-        mesh = new THREE.Mesh(geometry, material);
-        mesh.name = getRandomItem(direct);
-        mesh.position.x = getRandomItem(startX);
-        mesh.position.y = getRandomItem(startY);
+    let mesh_1;
+    let mesh_2;
+    let mesh_3;
+    let mesh_4;
+    let mesh_5;
+    // for(let i=1; i<=number;i++){
+        mesh_1 = new THREE.Mesh(geometry, material);
+        mesh_1.name = getRandomItem(direct);
+        mesh_1.position.x = getRandomItem(startX);
+        mesh_1.position.y = getRandomItem(startY);
         //d.push('direction_'+i, getRandomItem(direct));
-        scene.add(mesh);
+    mesh_2 = new THREE.Mesh(geometry, material);
+    mesh_2.name = getRandomItem(direct);
+    mesh_2.position.x = getRandomItem(startX);
+    mesh_2.position.y = getRandomItem(startY);
+
+    mesh_3 = new THREE.Mesh(geometry, material);
+    mesh_3.name = getRandomItem(direct);
+    mesh_3.position.x = getRandomItem(startX);
+    mesh_3.position.y = getRandomItem(startY);
+
+    mesh_4 = new THREE.Mesh(geometry, material);
+    mesh_4.name = getRandomItem(direct);
+    mesh_4.position.x = getRandomItem(startX);
+    mesh_4.position.y = getRandomItem(startY);
+
+    mesh_5 = new THREE.Mesh(geometry, material);
+    mesh_5.name = getRandomItem(direct);
+    mesh_5.position.x = getRandomItem(startX);
+    mesh_5.position.y = getRandomItem(startY);
 
 
 
-    }
+
+    // }
+
+    scene.add(mesh_1);
+    scene.add(mesh_2);
+    scene.add(mesh_3);
+    scene.add(mesh_4);
+    scene.add(mesh_4);
+
 
 
 
@@ -131,59 +161,60 @@ window.onload = () => {
     //let direction2 = start.direction;
 
     //scene.add(mesh2);
+    
 
-    console.log(scene.children.length);
 
     function loop() {
         //касание правой
-        if (Math.round(mesh.position.x) >= window.innerWidth / 2 || mesh.name === 'left') {
-            mesh.position.x = (window.innerWidth / 2)-3;
-            mesh.name = 'left';
-        }
-        //касание левой
-        if (Math.round(mesh.position.x) <= -window.innerWidth / 2 || mesh.name === 'right') {
-            mesh.position.x = (-window.innerWidth / 2)+3;
-            mesh.name = 'right';
-        }
-        //касание низа
-        if (Math.round(mesh.position.y) >= window.innerHeight / 2 || mesh.name === 'top') {
-            mesh.position.y = (window.innerHeight / 2) -3;
-            mesh.name = 'top';
-        }
-        //касание верха
-        if (Math.round(mesh.position.y) <= -window.innerHeight / 2 || mesh.name === 'bottom') {
-            mesh.position.y = (-window.innerHeight / 2)+3;
-            mesh.name = 'bottom';
-        }
-
-        //касание правой
-        if (mesh.position.x === (window.innerWidth / 2)-3 || mesh.name === 'left') {
-            mesh.rotation.y += -steps.rotationY;
-            mesh.rotation.z += -steps.rotationZ;
-            mesh.position.x -= steps.positionX;
-            mesh.position.y -= steps.positionY;
-            //касание левой
-        }
-        if (mesh.position.x === (-window.innerWidth / 2)+3 || mesh.name === 'right') {
-            mesh.rotation.y += -steps.rotationY;
-            mesh.rotation.z += -steps.rotationZ;
-            mesh.position.x += steps.positionX;
-            mesh.position.y += steps.positionY;
-        }
-        //касание верха
-        if (mesh.position.y ===(window.innerHeight / 2) -3 || mesh.name === 'top') {
-            mesh.rotation.y += -steps.rotationY;
-            mesh.rotation.z += -steps.rotationZ;
-            mesh.position.x += steps.positionX;
-            mesh.position.y -= steps.positionY * 2;
-            //касание низа
-        }
-        if (mesh.position.y === (-window.innerHeight / 2)+3 || mesh.name === 'bottom') {
-            mesh.rotation.y += -steps.rotationY;
-            mesh.rotation.z += -steps.rotationZ;
-            mesh.position.x += -steps.positionX;
-            mesh.position.y += steps.positionY * 2;
-        }
+        // if (Math.round(mesh.position.x) >= window.innerWidth / 2 || mesh.name === 'left') {
+        //     mesh.position.x = (window.innerWidth / 2)-3;
+        //     mesh.name = 'left';
+        // }
+        // //касание левой
+        // if (Math.round(mesh.position.x) <= -window.innerWidth / 2 || mesh.name === 'right') {
+        //     mesh.position.x = (-window.innerWidth / 2)+3;
+        //     mesh.name = 'right';
+        // }
+        // //касание низа
+        // if (Math.round(mesh.position.y) >= window.innerHeight / 2 || mesh.name === 'top') {
+        //     mesh.position.y = (window.innerHeight / 2) -3;
+        //     mesh.name = 'top';
+        // }
+        // //касание верха
+        // if (Math.round(mesh.position.y) <= -window.innerHeight / 2 || mesh.name === 'bottom') {
+        //     mesh.position.y = (-window.innerHeight / 2)+3;
+        //     mesh.name = 'bottom';
+        // }
+        //
+        // //касание правой
+        // if (mesh.position.x === (window.innerWidth / 2)-3 || mesh.name === 'left') {
+        //     mesh.rotation.y += -steps.rotationY;
+        //     mesh.rotation.z += -steps.rotationZ;
+        //     mesh.position.x -= steps.positionX;
+        //     mesh.position.y -= steps.positionY;
+        //     //касание левой
+        // }
+        // if (mesh.position.x === (-window.innerWidth / 2)+3 || mesh.name === 'right') {
+        //     mesh.rotation.y += -steps.rotationY;
+        //     mesh.rotation.z += -steps.rotationZ;
+        //     mesh.position.x += steps.positionX;
+        //     mesh.position.y += steps.positionY;
+        // }
+        // //касание верха
+        // if (mesh.position.y ===(window.innerHeight / 2) -3 || mesh.name === 'top') {
+        //     mesh.rotation.y += -steps.rotationY;
+        //     mesh.rotation.z += -steps.rotationZ;
+        //     mesh.position.x += steps.positionX;
+        //     mesh.position.y -= steps.positionY * 2;
+        //     //касание низа
+        // }
+        // if (mesh.position.y === (-window.innerHeight / 2)+3 || mesh.name === 'bottom') {
+        //     mesh.rotation.y += -steps.rotationY;
+        //     mesh.rotation.z += -steps.rotationZ;
+        //     mesh.position.x += -steps.positionX;
+        //     mesh.position.y += steps.positionY * 2;
+        // }
+        console.log(mesh);
 
 
         ///////////////////////////
