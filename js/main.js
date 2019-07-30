@@ -48,6 +48,13 @@ window.onload = () => {
         return positon;
     }
 
+    function getRandomRotate(min,max){
+        //только положительное значение
+        //от 0 до 0.1 Y
+        //от 0 до 0.05 Z
+        //от 0 до ... X
+
+    }
     //пропорции элемента
     let element = {
         width: 50,
@@ -58,6 +65,7 @@ window.onload = () => {
     let steps = {
         rotationY: 0.005,
         rotationZ: 0.032,
+        rotationX: 0,
         positionX: 2,
         positionY: 2
     };
@@ -104,6 +112,9 @@ window.onload = () => {
         mesh.position.x = getRandomItem(startX);
         mesh.position.y = getRandomItem(startY);
         mesh.direction = getRandomItem(direct);
+        // mesh.rotation.x = Math.random();
+        // mesh.rotation.y = Math.random();
+        // mesh.rotation.z = Math.random();
         elements.push(mesh);
 
         scene.add(mesh);
