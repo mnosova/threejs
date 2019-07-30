@@ -48,33 +48,11 @@ window.onload = () => {
         return positon;
     }
 
-    function getRandomRotate(min,max){
-        //только положительное значение
-        //от 0 до 0.1 Y
-        //от 0 до 0.05 Z
-        //от 0 до ... X
-
+    function getRandomAmount(min,max){
+        return Math.random() * (max - min);
     }
-    //пропорции элемента
-    let element = {
-        width: 50,
-        height: 100,
-        depth: 30,
-    };
-
-    let steps = {
-        rotationY: 0.005,
-        rotationZ: 0.032,
-        rotationX: 0,
-        positionX: 2,
-        positionY: 2
-    };
-
-    let geometry = new THREE.BoxBufferGeometry(element.width, element.height, element.depth);
-    let material = new THREE.MeshPhongMaterial({color: 0xffffff, side: THREE.DoubleSide});
 
     //настройки позиций
-
     let direct = [
         'left',
         'right',
@@ -83,6 +61,13 @@ window.onload = () => {
         'bottom'
 
     ];
+
+    let element = {
+        width: getRandomAmount(20,60),
+        height: getRandomAmount(60,120),
+        depth: getRandomAmount(15,40),
+    };
+
     let startX = [
         -element.width * 3,
         -element.width * 2.5,
@@ -102,75 +87,78 @@ window.onload = () => {
     ];
 
     //вывод элеменов
-
-
     let number = 5;
     let elements = [];
+
     for (let i = 1; i <= number; i++) {
+        let material = new THREE.MeshPhongMaterial({ side: THREE.DoubleSide});
+        let geometry = new THREE.BoxBufferGeometry( getRandomAmount(40,120), getRandomAmount(120,220), getRandomAmount(30,80));
         let mesh = new THREE.Mesh(geometry, material);
+        material.color= {r:Math.random(),g:Math.random(),b:Math.random()};
         mesh.name = `mesh_${i}`;
         mesh.position.x = getRandomItem(startX);
         mesh.position.y = getRandomItem(startY);
         mesh.direction = getRandomItem(direct);
-        // mesh.rotation.x = Math.random();
-        // mesh.rotation.y = Math.random();
-        // mesh.rotation.z = Math.random();
         elements.push(mesh);
-
         scene.add(mesh);
     }
 
 
     function loop() {
         for (let i = 0; i <= elements.length - 1; i++) {
-            //касание правой
+            //на касание правой
             if (elements[i].position.x >= window.innerWidth / 2) {
                 elements[i].position.x = (window.innerWidth / 2) - 3;
                 elements[i].direction = 'left';
             }
-            //касание левой
+            //на касание левой
             if (elements[i].position.x <= -window.innerWidth / 2 ) {
                 elements[i].position.x = (-window.innerWidth / 2) + 3;
                 elements[i].direction = 'right';
             }
-            //касание низа
+            //на касание низа
             if (elements[i].position.y >= window.innerHeight / 2 ) {
                 elements[i].position.y = (window.innerHeight / 2) - 3;
                 elements[i].direction = 'top';
             }
-            //касание верха
+            //на касание верха
             if (elements[i].position.y <= -window.innerHeight / 2) {
                 elements[i].position.y = (-window.innerHeight / 2) + 3;
                 elements[i].direction = 'bottom';
             }
 
-            //касание правой
+            //после касания правой
             if (elements[i].direction === 'left') {
-                elements[i].rotation.y += -steps.rotationY;
-                elements[i].rotation.z += -steps.rotationZ;
-                elements[i].position.x -= steps.positionX;
-                elements[i].position.y -= steps.positionY;
-                //касание левой
+                elements[i].rotation.y += -getRandomAmount(0,0.1);
+                elements[i].rotation.z += -getRandomAmount(0,0.05);
+                elements[i].rotation.x += -getRandomAmount(0,0.002);
+                elements[i].position.x -= getRandomAmount(0,3);
+                elements[i].position.y -= getRandomAmount(0,2.5);
             }
+            //после касания левой
             if (elements[i].direction === 'right') {
-                elements[i].rotation.y += -steps.rotationY;
-                elements[i].rotation.z += -steps.rotationZ;
-                elements[i].position.x += steps.positionX;
-                elements[i].position.y += steps.positionY;
+                elements[i].rotation.y += -getRandomAmount(0,0.1);
+                elements[i].rotation.z += -getRandomAmount(0,0.05);
+                elements[i].rotation.x += -getRandomAmount(0,0.002);
+                elements[i].position.x += getRandomAmount(0,3);
+                elements[i].position.y += getRandomAmount(0,2.5);
             }
-            //касание верха
+            //после касания верха
             if (elements[i].direction === 'top') {
-                elements[i].rotation.y += -steps.rotationY;
-                elements[i].rotation.z += -steps.rotationZ;
-                elements[i].position.x += steps.positionX;
-                elements[i].position.y -= steps.positionY;
-                //касание низа
+                elements[i].rotation.y += -getRandomAmount(0,0.1);
+                elements[i].rotation.z += -getRandomAmount(0,0.05);
+                elements[i].rotation.x += -getRandomAmount(0,0.002);
+                elements[i].position.x += getRandomAmount(0,3);
+                elements[i].position.y -= getRandomAmount(0,2.5);
+
             }
+            //после касания низа
             if (elements[i].direction === 'bottom') {
-                elements[i].rotation.y += -steps.rotationY;
-                elements[i].rotation.z += -steps.rotationZ;
-                elements[i].position.x += -steps.positionX;
-                elements[i].position.y += steps.positionY;
+                elements[i].rotation.y += -getRandomAmount(0,0.1);
+                elements[i].rotation.z += -getRandomAmount(0,0.05);
+                elements[i].rotation.x += -getRandomAmount(0,0.002);
+                elements[i].position.x += -getRandomAmount(0,2.5);
+                elements[i].position.y += getRandomAmount(0,3);
             }
 
         }
